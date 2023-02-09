@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+background-color: black;
+color: white;
+}
+#settings {
+display: none;
+right: 35vw;
+left: 35vw;
+position: fixed;
+margin: auto;
+background-color: #000000;
+width: 35vw;
+border: 2px solid white;
+height: 50vw;
+border-radius: 20px;
+animation: glow 2s linear infinite alternate;
+}
+.togglesettings form {
+text-align: center;
+margin: auto;
+}
+.togglesettings input {
+text-align: center;
+}
+#settings h1 {
+text-align: center;
+position: relative;
+font-size: 5vw;
+top: 10px;
+font-family: Arial;
+color: white;
+}
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px #ffffff, 0 0 10px #000000;
+  }
+  to {
+    box-shadow: 0 0 30px #000000, 0 0 30px #ffffff;
+  }
+}
+button {
+border-radius: 10px;
+height: 5vw;
+width: 10vw;
+}
+</style>
+</head>
+<body>
+<button class="togglesettings" id="toggle"onclick="toggleSettings()">click me</button>
+<div class="togglesettings" id="settings">
+<h1>What's up?</h1>
+<form id = "tabcloaklink"class="togglesettings"><input class="togglesettings" type="text"></form>
+</div>
+<script>
+const form = document.getElementById('tabcloaklink');
+form.addEventListener('submit', tabCloak);
+function tabCloak(event) {
+    localStorage.setItem("tabcloak", event)
+    const link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+    }
+    link.href = localStorage.getItem("tabcloak")
+}
+/* Yes it's stolen from w3 schools and it's edited by me */
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function toggleSettings() {
+  document.getElementById("settings").style.display = "inline";
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.togglesettings')) {
+document.getElementById("settings").style.display = "none"
+  }
+}
+
+</script>
+</body>
+</html>
